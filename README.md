@@ -20,8 +20,29 @@ Before exploring the quantum advantage, we must first understand the classical c
 **Efficiency:** In the worst case, we need to call `f` a maximum of **9 times** to be 100% certain of the answer. This is because after seeing the same output 8 times in a row, there is still a possibility the function is balanced — the 9th call will either return a different value (confirming balanced) or the same value again (at which point it is impossible for the function to be balanced, so it must be constant). If the function is constant, all 16 calls are required to be completely certain, as there is always a chance the next call could return a different value until every input has been tried.
 
 This classical worst case of 9 calls contrasts sharply with the quantum approach demonstrated in Problem 5, where the Deutsch-Jozsa algorithm determines the answer with a **single query** to the function, regardless of how many inputs it takes.
+
 ### Problem 3: Quantum Oracles
-Implements quantum oracles for each of the four possible single-Boolean-input functions using Qiskit.
+To use a classical Boolean function in a quantum algorithm, it must first be encoded as a **quantum oracle** — a quantum circuit that implements the function in a way that is compatible with quantum superposition. Rather than simply computing `f(x)` and returning the result, the oracle transforms a two-qubit state according to the rule:
+
+|x⟩|y⟩ → |x⟩|y ⊕ f(x)⟩
+
+Where `x` is the input qubit, `y` is the output qubit, and `⊕` is the XOR operation. The output qubit is flipped if and only if `f(x) = 1`, leaving the input qubit unchanged. This formulation is necessary because quantum operations must be reversible — unlike classical logic gates, you cannot simply discard information.
+
+With a single Boolean input, there are exactly four possible Boolean functions:
+
+| Function | f(0) | f(1) | Type |
+|----------|------|------|------|
+| Constant 0 | 0 | 0 | Constant |
+| Constant 1 | 1 | 1 | Constant |
+| Identity | 0 | 1 | Balanced |
+| NOT | 1 | 0 | Balanced |
+
+Each oracle is implemented using two fundamental quantum gates:
+
+- **X gate** - flips a qubit from |0⟩ to |1⟩ or vice versa, equivalent to a classical NOT operation
+- **CNOT gate** - flips the target qubit only if the control qubit is |1⟩, equivalent to a classical XOR operation
+
+This problem implements all four oracles and demonstrates each one by running it on the Qiskit simulator with both possible inputs, verifying that each oracle correctly encodes its corresponding function.
 
 ### Problem 4: Deutsch's Algorithm
 Implements Deutsch's algorithm using Qiskit to determine whether a single-input function is constant or balanced using only one query.
