@@ -44,9 +44,26 @@ Each oracle is implemented using two fundamental quantum gates:
 
 This problem implements all four oracles and demonstrates each one by running it on the Qiskit simulator with both possible inputs, verifying that each oracle correctly encodes its corresponding function.
 
-### Problem 4: Deutsch's Algorithm
-Implements Deutsch's algorithm using Qiskit to determine whether a single-input function is constant or balanced using only one query.
 
+### Problem 4: Deutsch's Algorithm with Qiskit
+[Deutsch's algorithm](https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/quantum-query-algorithms/deutsch-algorithm) is the simplest example of a quantum algorithm that demonstrates a provable advantage over any classical approach. While a classical computer must call the function at least twice to determine whether it is constant or balanced, Deutsch's algorithm determines the answer with a **single query** to the oracle, regardless of the result.
+
+The circuit uses two qubits — an input qubit and an output qubit — and works as follows:
+
+1. **Initialisation** - the input qubit starts as |0⟩ and the output qubit is flipped to |1⟩ using an X gate
+2. **Superposition** - Hadamard gates are applied to both qubits, placing them into superposition so that both possible inputs are encoded simultaneously in a single quantum state
+3. **Oracle query** - the oracle is applied once, encoding the function into the quantum state across both inputs at the same time
+4. **Interference** - a final Hadamard gate is applied to the input qubit, causing constructive or destructive interference depending on whether the function is constant or balanced
+5. **Measurement** - the input qubit is measured
+
+**Reading the result:**
+
+- If the input qubit measures as **0** → the function is **constant**
+- If the input qubit measures as **1** → the function is **balanced**
+
+The interference step is the key to why this works. For constant functions, the quantum states reinforce each other and the input qubit returns to |0⟩. For balanced functions, the states cancel each other out, leaving the input qubit as |1⟩. This allows a single query to reveal a global property of the function — something that is impossible classically without at least two calls.
+
+The circuit is demonstrated below using each of the four oracles from Problem 3, with 1024 shots confirming that the result is deterministic and not probabilistic.
 ### Problem 5: Deutsch-Jozsa Algorithm
 Scales Deutsch's algorithm to handle four-input functions, demonstrating the quantum advantage over the classical approach from Problem 2.
 
