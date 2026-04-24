@@ -64,9 +64,12 @@ The circuit uses two qubits — an input qubit and an output qubit — and works
 The interference step is the key to why this works. For constant functions, the quantum states reinforce each other and the input qubit returns to |0⟩. For balanced functions, the states cancel each other out, leaving the input qubit as |1⟩. This allows a single query to reveal a global property of the function — something that is impossible classically without at least two calls.
 
 The circuit is demonstrated below using each of the four oracles from Problem 3, with 1024 shots confirming that the result is deterministic and not probabilistic.
-### Problem 5: Deutsch-Jozsa Algorithm
-Scales Deutsch's algorithm to handle four-input functions, demonstrating the quantum advantage over the classical approach from Problem 2.
 
+### Problem 5: Deutsch-Jozsa Algorithm
+
+Scales Deutsch's algorithm from Problem 4 up to handle the four-bit functions generated in Problem 1, completing the comparison between the classical and quantum approaches. The circuit uses 5 qubits — 4 input qubits and 1 output qubit — and works by encoding all 16 possible input combinations into a single quantum state via superposition, querying the oracle once, and using interference to reveal whether the function is constant or balanced.
+
+The classical function from Problem 1 is encoded as a quantum oracle by iterating over all 16 inputs and adding a multi-controlled CNOT gate for each input where `f(x) = 1`. The algorithm is demonstrated on both constant functions and two randomly generated balanced functions, showing that the circuit correctly identifies each one with a single query — compared to the worst case of 9 calls required by the classical approach in Problem 2.
 ## Requirements
 - Python 3
 - Qiskit
