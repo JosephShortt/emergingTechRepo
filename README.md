@@ -2,6 +2,20 @@
 
 This notebook explores the difference between classical and quantum algorithms using the Deutsch-Jozsa algorithm as an example.
 
+## Getting Started
+
+To run this notebook locally, follow these steps:
+
+1. Clone the repository:
+   git clone https://github.com/JosephShortt/emergingTechRepo
+
+2. Install the required dependencies:
+   pip install -r requirements.txt
+
+3. Launch the notebook:
+   jupyter notebook problems.ipynb
+
+
 ## Problems
 
 ### Problem 1: Generating Random Boolean Functions
